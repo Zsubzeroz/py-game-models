@@ -1,6 +1,5 @@
-# db/models.py
-
 from django.db import models
+
 
 class Race(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -9,17 +8,19 @@ class Race(models.Model):
     class Meta:
         app_label = "db"
 
+
 class Skill(models.Model):
     name = models.CharField(max_length=255, unique=True)
     bonus = models.CharField(max_length=255)
     race = models.ForeignKey(
-        Race, 
-        on_delete=models.CASCADE, 
+        Race,
+        on_delete=models.CASCADE,
         related_name="skills"
     )
 
     class Meta:
         app_label = "db"
+
 
 class Guild(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -28,19 +29,20 @@ class Guild(models.Model):
     class Meta:
         app_label = "db"
 
+
 class Player(models.Model):
     nickname = models.CharField(max_length=255, unique=True)
     email = models.EmailField(max_length=255)
     bio = models.CharField(max_length=255)
     race = models.ForeignKey(
-        Race, 
-        on_delete=models.CASCADE, 
+        Race,
+        on_delete=models.CASCADE,
         related_name="players"
     )
     guild = models.ForeignKey(
-        Guild, 
-        on_delete=models.SET_NULL, 
-        null=True, 
+        Guild,
+        on_delete=models.SET_NULL,
+        null=True,
         related_name="players"
     )
     created_at = models.DateTimeField(auto_now_add=True)
